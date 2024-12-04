@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Group Identification</title>
+    <style>
+        body {
+            background-image: url('https://wallpapercave.com/wp/wp9407427.jpg');
+            background-size: cover;
+            background-position: center;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #111;
+            font-weight: bold;
+        }
+
+        .upload-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .upload-box {
+            padding: 20px;
+            border-radius: 12px;
+            width: 45%;
+            height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #111;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+        }
+
+        .upload-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .upload-box input {
+            display: none;
+        }
+
+        .red-box {
+            background: rgba(255, 0, 0, 0.4);
+        }
+
+        .green-box {
+            background: rgba(0, 0, 255, 0.4);
+        }
+
+        button {
+            padding: 12px 30px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+
+        #image-preview-container {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        #image-preview-container h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #111;
+        }
+
+        #image-preview {
+            margin-top: 10px;
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h3 {
+            color: #333;
+        }
+
+        @media (max-width: 768px) {
+            .upload-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+
+            .upload-box {
+                width: 100%;
+                height: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Upload an ABO Blood Cell Image</h1>
+
+        <form action="{% url 'profiles' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="upload-container">
+                <label class="upload-box red-box" for="abo-upload">Upload ABO Blood Cell Image
+                    <input type="file" id="abo-upload" name="abo_image" accept="image/*">
+                </label>
+            </div>
+
+            <button type="submit">Check Blood Group</button>
+        </form>
+
+        {% if morph_image %}
+            <div id="image-preview-container">
+                <h3>Uploaded Image:</h3>
+                <img src="data:image/png;base64,{{ morph_image }}" alt="Processed Image" id="image-preview">
+                <h3>Blood Type: <strong>{{ blood_type }}</strong></h3>
+            </div>
+        {% endif %}
+
+        {% if error_message %}
+            <h3 style="color: red; margin-top: 20px;">The uploaded image could not be processed. Please ensure it is a valid blood smear image.</h3>
+        {% endif %}
+    </div>
+
+</body>
+</html>
