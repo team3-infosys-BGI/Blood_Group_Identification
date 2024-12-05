@@ -22,10 +22,10 @@
 
         .form-container {
             background-color: rgba(255, 255, 255, 0.85); /* Semi-transparent white */
-            padding: 30px;
-            border-radius: 10px;
+            padding: 40px;
+            border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            max-width: 400px;
+            max-width: 768px;
             width: 100%;
             text-align: center;
         }
@@ -126,24 +126,32 @@
 </head>
 
 <body>
+    {% extends 'base.html' %}
 
-    <div class="form-container">
-        <h1>Register</h1>
-        <form method="post">
-            {% csrf_token %}
-            {% for field in form %}
-                <div class="input-group">
-                    {{ field.label_tag }}<br> <!-- Label -->
-                    {{ field }} <!-- Input field -->
-                    {% for error in field.errors %}
-                        <p class="error">{{ error }}</p> <!-- Error message -->
-                    {% endfor %}
-                </div>
-            {% endfor %}
-            <button type="submit">Register</button>
-            <a href="/login">Already have an account? Sign In</a>
-        </form>
-    </div>
+{% block title %}Profiles{% endblock %}
+
+{% block content %}
+{% comment %} <h1>Your Profile</h1> {% endcomment %}
+<!-- Add your profile content here -->
+<div class="form-container">
+    <h1>Register</h1>
+    <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="input-group">
+                {{ field.label_tag }}<br> <!-- Label -->
+                {{ field }} <!-- Input field -->
+                {% for error in field.errors %}
+                    <p class="error">{{ error }}</p> <!-- Error message -->
+                {% endfor %}
+            </div>
+        {% endfor %}
+        <button type="submit">Register</button>
+        <a href="/login">Already have an account? Sign In</a>
+    </form>
+</div>
+
+{% endblock %}
 
 </body>
 

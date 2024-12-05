@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -5,25 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <style>
+        /* General Reset */
         body {
+            margin: 0;
             font-family: 'Arial', sans-serif;
+        }
+
+        /* Background Styling */
+        body {
             background-image: url('https://img.freepik.com/premium-photo/rbc-blood-cell-stock-photos-illustrations-3d-renders-art-concept_662214-3677.jpg?w=996');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             height: 100vh;
-            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        div {
-            background: linear-gradient(
-                rgba(255, 255, 255, 0.8),
-                rgba(255, 255, 255, 0.6)
-            );
-            padding: 30px;
+        /* Form Container Styling */
+        .form-container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
             border-radius: 12px;
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
             width: 350px;
@@ -31,21 +35,15 @@
             text-align: center;
         }
 
-        h2 {
+        .form-container h2 {
             margin-bottom: 20px;
             font-size: 26px;
             color: #333;
             font-weight: bold;
         }
 
-        form p {
-            margin: 12px 0;
-            text-align: left;
-            font-weight: 500;
-            color: #555;
-        }
-
-        input {
+        /* Input Field Styling */
+        .form-container input {
             width: 100%;
             padding: 12px;
             margin: 10px 0;
@@ -56,11 +54,12 @@
             transition: border-color 0.3s;
         }
 
-        input:focus {
+        .form-container input:focus {
             border-color: #4CAF50;
         }
 
-        button {
+        /* Button Styling */
+        .form-container button {
             background-color: #4CAF50;
             color: white;
             padding: 12px;
@@ -74,12 +73,13 @@
             transition: background-color 0.3s, transform 0.2s;
         }
 
-        button:hover {
+        .form-container button:hover {
             background-color: #45a049;
             transform: scale(1.02);
         }
 
-        a {
+        /* Link Styling */
+        .form-container a {
             display: inline-block;
             text-decoration: none;
             color: #007BFF;
@@ -88,29 +88,31 @@
             transition: color 0.3s;
         }
 
-        a:hover {
+        .form-container a:hover {
             color: #0056b3;
         }
 
-        .msg {
+        /* Error Message Styling */
+        .form-container .msg {
             color: red;
             margin-bottom: 15px;
             font-size: 14px;
         }
 
+        /* Responsive Design */
         @media screen and (max-width: 768px) {
-            div {
+            .form-container {
                 width: 90%;
                 padding: 20px;
             }
         }
 
         @media screen and (max-width: 480px) {
-            h2 {
+            .form-container h2 {
                 font-size: 22px;
             }
 
-            button {
+            .form-container button {
                 font-size: 16px;
             }
         }
@@ -118,18 +120,21 @@
 </head>
 
 <body>
+    {% extends 'base.html' %}
+    {% block title %}Login{% endblock %}
 
-    <div>
+    {% block content %}
+    <div class="form-container">
         <h2>Login</h2>
         <p class="msg">{{ msg }}</p>
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
             <button>Login</button>
-            <a href='/register'>Don't have an account? Register</a>
+            <a href="/register">Don't have an account? Register</a>
         </form>
     </div>
-
+    {% endblock %}
 </body>
 
 </html>
